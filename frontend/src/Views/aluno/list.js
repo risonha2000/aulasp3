@@ -18,7 +18,8 @@ class ListaAlunos extends Component {
         axios.get(url)
             .then(res => {
                 if (res.data.success) {
-                    const data = res.data.data;
+                    //const data = res.data.data;
+                    const data = res.data.dados;
                     this.setState({ listaAlunos: data });
                 } else {
                     console.log('Erro');
