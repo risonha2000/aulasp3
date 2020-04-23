@@ -1,0 +1,27 @@
+{
+  "name": "exemplo1",
+  "version": "0.0.1",
+  "description": "Primeiro projeto NodeJS com módulos NPM.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "p3",
+    "nodejs",
+    "exemplo"
+  ],
+  "author": "fffonseca",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "minimist": "^1.2.5",
+    "mustache-express": "^1.3.0",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.3",
+    "sequelize": "^5.21.7"
+  }
+}
