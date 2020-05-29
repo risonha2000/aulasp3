@@ -1,11 +1,15 @@
 const Aluno = require("../models/aluno.model");
+const Disciplina = require("../models/disciplina.model");
+const AlunoDisciplina = require("../models/aluno_disciplina.model");
 const sequelize = require("../config/database");
 
 const controllers = {};
+sequelize.sync();
 
 //função do endpoint /alunos
 controllers.aluno_list = async (req, res) => {
-  const dados = await Aluno.findAll()
+  //opção 1) retorna todos os alunos incluindo as disciplinas e respetiva relação
+  const dados = await Aluno.findAll({include: [Disciplina]})
     .then(function (dados) {
       return dados;
     })
@@ -14,6 +18,35 @@ controllers.aluno_list = async (req, res) => {
         message: error.message || "Ocorreu um erro ao carregar os dados dos alunos.",
       });
     });
+    
+    /*********************************************************************************************
+     * opção 2) retorna todas as disciplinas incluindo os respetivos alunos e sua relação
+        const dados = await Disciplina.findAll({include: [Aluno]})
+          .then(function (dados) {
+            return dados;
+          })
+          .catch((error) => {
+            res.status(500).send({
+              message: error.message || "Ocorreu um erro ao carregar os dados das disciplinas.",
+            });
+          });
+    *********************************************************************************************/
+
+    /*********************************************************************************************
+     * opção 3) retorna os dados da relação de acordo com a clásula WHERE definida
+        const dados = await AlunoDisciplina.findAll({ where: { alunoId: 1,
+                                                               disciplinaId: 1
+                                                             }
+        })
+        .then(function (dados) {
+          return dados;
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: error.message || "Ocorreu um erro ao carregar os dados dos alunos.",
+          });
+        });
+    *********************************************************************************************/
 
   console.log(dados);
   res.json({
